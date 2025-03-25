@@ -13,6 +13,9 @@ public class Task {
     public Task(long id, String description) {
         this.id = id;
         this.description = description;
+        this.status = TaskStatus.TODO;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = null; //TODO: remove this field from addTask method and should be appear at updateTask method
     }
 
     public long getId() {
@@ -53,5 +56,13 @@ public class Task {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getFullInfo() {
+        return "Id: " + getId() +
+                "\nDescription: " + getDescription() +
+                "\nStatus: " + getStatus() +
+                "\nCreated at: " + getCreatedAt() +
+                "\nUpdated at: " + getUpdatedAt();
     }
 }
