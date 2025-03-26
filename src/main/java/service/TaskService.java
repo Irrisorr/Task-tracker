@@ -47,4 +47,6 @@ public class TaskService implements TaskServiceInterface {
     public void listTasks() {
         tasks.stream().forEach(task -> System.out.println(task.getFullInfo()));
     }
+
+    //TODO: implement another methods such as markInProgress, markToDo, markDone
 }
