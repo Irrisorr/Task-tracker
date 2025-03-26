@@ -18,7 +18,6 @@ public class TaskService implements TaskServiceInterface {
         tasks.add(task);
     }
 
-    //DONE: implement updateTask method
     @Override
     public void updateTask(long id, String newDescription) {
         Task task = tasks.stream().filter(task1 -> task1.getId() == id).findFirst().orElse(null);
@@ -33,13 +32,12 @@ public class TaskService implements TaskServiceInterface {
 
     }
 
-    //TODO: implement deleteTask method
     @Override
     public void deleteTask(long id) {
-
+        Task task = tasks.stream().filter(task1 -> task1.getId() == id).findFirst().orElse(null);
+        tasks.remove(task);
     }
 
-    //TODO: implement listTasks method in 2 ways: full info and description with id
     @Override
     public void listTasks() {
         tasks.stream().forEach(task -> System.out.println(task.getFullInfo()));

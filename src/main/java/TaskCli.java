@@ -38,6 +38,9 @@ public class TaskCli {
                     newDescription = newDescription.isEmpty() ? "<Empty description>" : newDescription;
                     serv.updateTask(Long.parseLong(id), newDescription);
                     break;
+                case "delete":
+                    serv.deleteTask(Long.parseLong(id));
+                    break;
                 case "list":
                     serv.listTasks();
                     break;
