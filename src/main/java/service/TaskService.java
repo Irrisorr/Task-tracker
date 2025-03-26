@@ -23,7 +23,7 @@ public class TaskService implements TaskServiceInterface {
         Task task = tasks.stream().filter(task1 -> task1.getId() == id).findFirst().orElse(null);
 
         if (task == null) {
-            System.out.println("Task with id " + id + " not found");
+            System.out.println("Task with id=" + id + " not found\nPlease rerun command with proper id\n");
         } else {
             task.setDescription(newDescription);
             task.setUpdatedAt(LocalDateTime.now());
@@ -35,12 +35,16 @@ public class TaskService implements TaskServiceInterface {
     @Override
     public void deleteTask(long id) {
         Task task = tasks.stream().filter(task1 -> task1.getId() == id).findFirst().orElse(null);
-        tasks.remove(task);
+        if (task != null) {
+            tasks.remove(task);
+            System.out.println("===> Task deleted successfully <===\n");
+        } else {
+            System.out.println("Task with id=" + id + " not found\nPlease rerun command with proper id\n");
+        }
     }
 
     @Override
     public void listTasks() {
         tasks.stream().forEach(task -> System.out.println(task.getFullInfo()));
     }
-
 }

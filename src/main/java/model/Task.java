@@ -12,7 +12,7 @@ public class Task {
 
     public Task(long id, String description) {
         this.id = id;
-        this.description = description;
+        this.description = verifyDescription(description);
         this.status = TaskStatus.TODO;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = null;
@@ -31,7 +31,7 @@ public class Task {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = verifyDescription(description);
     }
 
     public TaskStatus getStatus() {
@@ -67,5 +67,9 @@ public class Task {
         info = getUpdatedAt() == null ? info : info + "Updated at: " + getUpdatedAt() + "\n";
 
         return info;
+    }
+
+    public String verifyDescription(String description) {
+        return description.isEmpty() ? "<Empty description>" : description;
     }
 }
