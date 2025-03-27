@@ -12,5 +12,13 @@ public interface Runner {
 
     void list();
 
+    default long verifyId(String id) {
+        try {
+            return Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            return -111;
+        }
+    }
+
     //TODO: implement another methods such as markInProgress, markToDo, markDone
 }

@@ -20,9 +20,8 @@ public class ContinuousRunner implements Runner{
 
             switch (command) {
                 case "add" -> add();
-                //TODO: add verification ifIdNotEmpty (null) method at update and delete functions
-                case "update" -> update(Long.parseLong(id));
-                case "delete" -> delete(Long.parseLong(id));
+                case "update" -> update(verifyId(id));
+                case "delete" -> delete(verifyId(id));
                 case "list" -> list();
                 case "exit" -> exit();
             }
@@ -40,14 +39,21 @@ public class ContinuousRunner implements Runner{
 
     @Override
     public void update(long id) {
-        System.out.print("Enter new task description: ");
-        String newDescription = scanner.nextLine().trim();
-        serv.updateTask(id, newDescription);
+        //TODO: in future rewrite verifyId method to have less garbage
+        if (id == -111) {
+            System.out.println("Please type valid id. Must be a number\n");
+        } else {
+            System.out.print("Enter new task description: ");
+            String newDescription = scanner.nextLine().trim();
+            serv.updateTask(id, newDescription);
+        }
     }
 
     @Override
     public void delete(long id) {
-        serv.deleteTask(id);
+        if (id == -111) {
+            System.out.println("Please type valid id. Must be a number\n");
+        } else serv.deleteTask(id);
     }
 
     @Override

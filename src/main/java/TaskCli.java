@@ -1,9 +1,6 @@
 package main.java;
 
 import main.java.runner.ContinuousRunner;
-import main.java.service.TaskService;
-
-import java.util.Scanner;
 
 public class TaskCli {
 
