@@ -69,10 +69,16 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public void listTasks() {
-        tasks.stream()
-                .sorted(Comparator.comparingLong(Task::getId).reversed())
-                .forEach(task -> System.out.println(task.getFullInfo()));
+    public void listTasks(TaskStatus status) {
+
+        if (status != null) {
+            tasks.stream().sorted(Comparator.comparingLong(Task::getId).reversed())
+                    .filter(task -> task.getStatus() == status)
+                    .forEach(task -> System.out.println(task.getFullInfo()));
+        } else {
+            tasks.stream().sorted(Comparator.comparingLong(Task::getId).reversed())
+                    .forEach(task -> System.out.println(task.getFullInfo()));
+        }
     }
 
     private long getId() {

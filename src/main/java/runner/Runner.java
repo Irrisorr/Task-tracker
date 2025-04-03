@@ -20,7 +20,7 @@ public interface Runner {
 
     void markStatus(long id, TaskStatus status);
 
-    void list();
+    void list(TaskStatus status);
 
     default long verifyId(String id) {
         try {

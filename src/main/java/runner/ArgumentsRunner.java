@@ -49,7 +49,10 @@ public class ArgumentsRunner implements Runner{
                     id = verifyId(args[1]);
                     delete(id);
                 }
-                case "list" -> list();
+                case "list" -> list(null);
+                case "list-done" -> list(TaskStatus.DONE);
+                case "list-in-progress" -> list(TaskStatus.IN_PROGRESS);
+                case "list-todo" -> list(TaskStatus.TODO);
                 case "mark-in-progress" -> {
                     id = verifyId(args[1]);
                     markStatus(id, TaskStatus.IN_PROGRESS);
@@ -97,8 +100,8 @@ public class ArgumentsRunner implements Runner{
     }
 
     @Override
-    public void list() {
-        serv.listTasks();
+    public void list(TaskStatus status) {
+        serv.listTasks(status);
     }
 
     private void synchronize() throws IOException {

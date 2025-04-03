@@ -12,5 +12,5 @@ public interface TaskServiceInterface {
 
     void markTaskStatus(long id, TaskStatus status);
 
-    void listTasks();
+    void listTasks(TaskStatus status);
 }

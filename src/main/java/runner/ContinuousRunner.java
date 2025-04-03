@@ -38,7 +38,10 @@ public class ContinuousRunner implements Runner{
                 case "mark-in-progress" -> markStatus(verifyId(id), TaskStatus.IN_PROGRESS);
                 case "mark-done" -> markStatus(verifyId(id), TaskStatus.DONE);
                 case "mark-todo" -> markStatus(verifyId(id), TaskStatus.TODO);
-                case "list" -> list();
+                case "list" -> list(null);
+                case "list-done" -> list(TaskStatus.DONE);
+                case "list-in-progress" -> list(TaskStatus.IN_PROGRESS);
+                case "list-todo" -> list(TaskStatus.TODO);
                 case "exit" -> exit();
                 default -> System.out.println("Unknown command.\n" + HELP_COMMAND);
             }
@@ -79,8 +82,8 @@ public class ContinuousRunner implements Runner{
     }
 
     @Override
-    public void list() {
-        serv.listTasks();
+    public void list(TaskStatus status) {
+        serv.listTasks(status);
     }
 
     public void exit()  {
