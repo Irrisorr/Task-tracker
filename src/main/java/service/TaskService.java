@@ -1,19 +1,28 @@
 package main.java.service;
 
 import main.java.model.Task;
+import main.java.model.TaskStatus;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.Set;
+
 
 public class TaskService implements TaskServiceInterface {
 
-    private final Set<Task> tasks = new HashSet<Task>();
-    private long id = 0;
+    private final Set<Task> tasks;
+
+    public TaskService(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
 
     @Override
     public void addTask(String description) {
-        Task task = new Task(this.id++, description);
+        Task task = new Task(getId(), description);
         System.out.println("===> Task created successfully <===\n" + task.getFullInfo());
         tasks.add(task);
     }
@@ -44,9 +53,28 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public void listTasks() {
-        tasks.forEach(task -> System.out.println(task.getFullInfo()));
+    public void markTaskStatus(long id, TaskStatus status) {
+        Task task = tasks.stream().filter(task1 -> task1.getId() == id).findFirst().orElse(null);
+        if (task == null) {
+            System.out.println("Task with id=" + id + " not found\nPlease rerun command with proper id\n");
+        } else {
+            switch (status) {
+                case TODO -> task.setStatus(TaskStatus.TODO);
+                case IN_PROGRESS -> task.setStatus(TaskStatus.IN_PROGRESS);
+                case DONE -> task.setStatus(TaskStatus.DONE);
+            }
+            System.out.println("===> Task status updated successfully <===\n" + task.getFullInfo());
+        }
     }
 
-    //TODO: implement another methods such as markInProgress, markToDo, markDone
+    @Override
+    public void listTasks() {
+        tasks.stream()
+                .sorted(Comparator.comparingLong(Task::getId).reversed())
+                .forEach(task -> System.out.println(task.getFullInfo()));
+    }
+
+    private long getId() {
+        return tasks.stream().map(Task::getId).max(Long::compare).orElse(0L) + 1;
+    }
 }

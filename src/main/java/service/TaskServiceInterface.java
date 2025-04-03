@@ -1,5 +1,7 @@
 package main.java.service;
 
+import main.java.model.TaskStatus;
+
 public interface TaskServiceInterface {
 
     void addTask(String description);
@@ -7,6 +9,8 @@ public interface TaskServiceInterface {
     void updateTask(long id, String description);
 
     void deleteTask(long id);
+
+    void markTaskStatus(long id, TaskStatus status);
 
     void listTasks();
 }
