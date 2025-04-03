@@ -63,6 +63,7 @@ public class TaskService implements TaskServiceInterface {
                 case IN_PROGRESS -> task.setStatus(TaskStatus.IN_PROGRESS);
                 case DONE -> task.setStatus(TaskStatus.DONE);
             }
+            task.setUpdatedAt(LocalDateTime.now());
             System.out.println("===> Task status updated successfully <===\n" + task.getFullInfo());
         }
     }

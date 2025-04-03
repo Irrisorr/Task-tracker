@@ -2,7 +2,6 @@ package main.java.runner;
 
 import main.java.model.TaskStatus;
 
-import java.io.IOException;
 
 public interface Runner {
 
@@ -11,7 +10,7 @@ public interface Runner {
             For exit type 'exit'
             """;
 
-    void run() throws IOException;
+    void run();
 
     void add();
 

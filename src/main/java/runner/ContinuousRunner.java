@@ -23,7 +23,7 @@ public class ContinuousRunner implements Runner{
 
 
     @Override
-    public void run() {
+    public void run()  {
         System.out.print(HELP_COMMAND + ">>> ");
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();

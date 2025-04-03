@@ -10,9 +10,10 @@ public class TaskCli {
     private static final ArgumentsRunner argumentsRunner = new ArgumentsRunner();
 
     public static void main(String[] args) {
-//        continuousRunner.run();
-        argumentsRunner.run(args);
+        if (args.length == 0) {
+            continuousRunner.run();
+        } else {
+            argumentsRunner.run(args);
+        }
     }
-
-
 }
