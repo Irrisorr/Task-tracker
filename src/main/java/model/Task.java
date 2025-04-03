@@ -1,6 +1,7 @@
 package main.java.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
 
@@ -9,6 +10,8 @@ public class Task {
     private TaskStatus status;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public Task(long id, String description) {
         this.id = id;
@@ -61,10 +64,10 @@ public class Task {
     public String getFullInfo() {
 
         String info = String.format("Id: %d\nDescription: %s\nStatus: %s\nCreated at: %s\n",
-                getId(), getDescription(), getStatus(), getCreatedAt());
+                getId(), getDescription(), getStatus(), getCreatedAt().format(DATE_FORMATTER));
 
         //Show updatedAt only if it is not null (not appeared at addTask method and appear at updateTask method)
-        info = getUpdatedAt() == null ? info : info + "Updated at: " + getUpdatedAt() + "\n";
+        info = getUpdatedAt() == null ? info : info + "Updated at: " + getUpdatedAt().format(DATE_FORMATTER) + "\n";
 
         return info;
     }
