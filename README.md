@@ -13,7 +13,7 @@ The project is designed to help users manage and track their tasks, offering fea
 
 ### How to Run
 
-1. Clone the repository:
+1. Clone the repository and compile:
 ```
 git clone https://github.com/Irrisorr/Task-tracker.git
 cd Task-Tracker
