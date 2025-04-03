@@ -16,7 +16,7 @@ The project is designed to help users manage and track their tasks, offering fea
 1. Clone the repository and compile:
 ```
 git clone https://github.com/Irrisorr/Task-tracker.git
-cd Task-Tracker
+cd Task-tracker
 javac main/java/TaskCli.java
 ```
 2. Run TaskCli.java with arguments (1 method to run):
