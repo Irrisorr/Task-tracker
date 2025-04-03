@@ -10,24 +10,29 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//TODO: implement methods for store tasks at JSON file
+
 public class JsonMapper {
 
-    public void saveTasks(Set<Task> tasks) throws IOException {
-        Path path = Path.of("tasks.json");
+    private static final Path TASKS_JSON_PATH = Path.of("../tasks.json");
 
-        if (!Files.exists(path)) {
-            Files.createFile(path);
+    public void saveTasks(Set<Task> tasks) throws IOException {
+        if (!Files.exists(TASKS_JSON_PATH)) {
+            Files.createFile(TASKS_JSON_PATH);
         }
-        Files.writeString(path, TasksToJson(tasks));
+        Files.writeString(TASKS_JSON_PATH, TasksToJson(tasks));
     }
 
     public Set<Task> loadTasks() throws IOException {
-        Path path = Path.of("tasks.json");
-        if (!Files.exists(path)) {
+        if (!Files.exists(TASKS_JSON_PATH)) {
             return new HashSet<>();
         }
-        return JsonToTasks(Files.readString(path));
+        
+        String content = Files.readString(TASKS_JSON_PATH);
+        if (content.equals("[]")) {
+            return new HashSet<>();
+        }
+        
+        return JsonToTasks(content);
     }
 
     private String TaskToJson(Task task) {
@@ -62,36 +67,17 @@ public class JsonMapper {
         LocalDateTime updatedAt = (result.size() < 5 || result.get(4).equals("null")) ? null : LocalDateTime.parse(result.get(4));
 
         return new Task(id, description, status, createdAt, updatedAt);
-
     }
 
     private Set<Task> JsonToTasks(String json) {
-        String[] allTasks = json.substring(2, json.length() - 2).split("},\\{");
+        if (json.trim().length() <= 2) {
+            return new HashSet<>();
+        }
+
+        String[] allTasks = json.substring(2, json.length() - 2)
+                .split("},\\{");
         return Arrays.stream(allTasks)
-                .map(this::JsonToTask)
-                .collect(Collectors.toSet());
+            .map(this::JsonToTask)
+            .collect(Collectors.toSet());
     }
-
-    public static void main(String[] args) {
-        Task task = new Task(1, "description");
-        JsonMapper jsonMapper = new JsonMapper();
-        System.out.println(jsonMapper.TaskToJson(task));
-
-        String json = "[{\"id\": \"1\", \"description\": \"descriptionName\", \"status\": \"TODO\", \"created_at\": \"2023-01-01T00:00:30\", \"updated_at\": \"2023-01-01T00:00:00\"}";
-        String json1 = "{\"id\": \"2\", \"description\": \"descriptionName2\", \"status\": \"TODO\", \"created_at\": \"2023-01-01T00:00:00\"}]";
-        String allJson = json + "," + json1;
-        //Task task1 = jsonMapper.JsonToTask(json);
-        //Task task2 = jsonMapper.JsonToTask(json1);
-        //System.out.println(task1.getFullInfo());
-        System.out.println(allJson);
-        System.out.println(jsonMapper.JsonToTasks(allJson).stream().map(Task::getFullInfo).collect(Collectors.joining("\n")));
-
-        Set<Task> tasks = new HashSet<>();
-        tasks.add(task);
-        //tasks.add(task2);
-        System.out.println(jsonMapper.TasksToJson(tasks));
-
-        System.out.println();
-    }
-
 }
