@@ -69,14 +69,14 @@ java main.java.TaskCli
 
 after that an internal environment will appear in which you can write commands the same as the arguments above.
 
-Adding a new task
+Adding a new task (then you will need to enter a description)
 ```
-add Buy groceries
+add
 ```
-Updating and deleting tasks
+Updating and deleting tasks (then you will need to enter a description)
 ```
-update 1 "Buy groceries and cook dinner"
-java main.java.TaskCli delete 1
+update 1
+delete 1
 ```
 
 Marking a task as in progress or done
