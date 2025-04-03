@@ -2,6 +2,8 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.class
+tasks.json
 
 ### Eclipse ###
 .apt_generated
