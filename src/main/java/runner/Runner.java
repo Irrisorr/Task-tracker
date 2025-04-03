@@ -1,14 +1,25 @@
 package main.java.runner;
 
+import main.java.model.TaskStatus;
+
+import java.io.IOException;
+
 public interface Runner {
 
-    void run();
+    String HELP_COMMAND = """
+            Available commands: add, update $idTask, delete $idTask, list
+            For exit type 'exit'
+            """;
+
+    void run() throws IOException;
 
     void add();
 
     void update(long id);
 
     void delete(long id);
+
+    void markStatus(long id, TaskStatus status);
 
     void list();
 
@@ -19,6 +30,4 @@ public interface Runner {
             return -111;
         }
     }
-
-    //TODO: implement another methods such as markInProgress, markToDo, markDone
 }

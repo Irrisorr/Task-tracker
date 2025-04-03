@@ -18,12 +18,16 @@ public class Task {
         this.updatedAt = null;
     }
 
-    public long getId() {
-        return id;
+    public Task(long id, String description, TaskStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.description = verifyDescription(description);
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getId() {
+        return id;
     }
 
     public String getDescription() {
